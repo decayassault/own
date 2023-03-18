@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="ru" dir="ltr" spellcheck><head><!--#include file="h.htm"--><meta name="description" content="Пиццикато Алексея Лота. Синтаксический анализатор корректности текстовых арифметических выражений с использованием языка программирования Python3."><meta name="keywords" content="сайт алексея лота, технологии, синтаксический анализатор, арифметических выражений, на языке python, алексей лот"><title>Синтаксический анализатор корректности текстовых арифметических выражений с использованием языка программирования Python3</title></head><body><header><h1 class=m>Пиццикато Алексея Лота</h1><nav><a href="p.htm">Главная</a><a href="a.htm">Афоризмы</a><a href="m.htm">Песни</a><a href="l.htm">Психология</a><a href="r.htm">Рассказы</a><a href="b.htm">Религия</a><a href="s.htm">Стихотворения</a><a id="i" href="t.htm">Технологии</a><a href="f.htm">Философия</a></nav></header><article id="c"><h2 class=m>Синтаксический анализатор корректности текстовых арифметических выражений с использованием языка программирования Python3</h2><div id="w"><pre>
+    expressionChars = list(input('Enter expression: '))
+    isCorrectExpression = False
+    digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+    operations = {"/", "+", "-", "*", "^"}
+    state = 0;
+    count = 0
+
+    for char in expressionChars:
+        if state == 0 and char in {"+", "-"}.union(digits):
+            state = 5
+        elif (state == 5 or state == 1 or state == 3) and char in digits:
+            state = 1
+        elif (state == 5 or state == 3 or state == 0) and char in {"("}:
+            state = 5
+            count+=1
+        elif state == 5 and char in {"+", "-"}:
+            state = 3       
+        elif state == 1 and char in {"."}:
+            state = 6
+        elif (state == 1 or state == 4) and char in {")"}:
+            state = 4
+            count-=1
+        elif (state == 1 or state == 4 or state == 2) and char in operations:
+            state = 3     
+        elif (state == 6 or state == 2) and char in digits:
+            state = 2
+
+    if state in {1, 4, 2} and count == 0:
+        isCorrectExpression = True
+    
+    print(f"isCorrectExpression: {isCorrectExpression}")
+</pre><br>Допустимы отрицательные, положительные целые и рациональные числа, вычисления в круглых скобках, умножение, деление и возведение в степень (записывается знаком ^).<br></div></article><br><footer>&copy;&nbsp;<i>Copyright&nbsp;<a href="https://алексейлот.рф">алексейлот.рф</a>&nbsp;-&nbsp;возьми главную ноту</i></footer></body></html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="ru" dir="ltr" spellcheck><head><!--#include file="h.htm"--><meta name="description" content="Пиццикато Алексея Лота. Как выполнить код на Assembler из кода C# под Linux."><meta name="keywords" content="сайт алексея лота, технологии, си шарп, как выполнить код, код assembler, под linux, алексей лот"><title>Как выполнить код на Assembler из кода C# под Linux</title></head><body><header><h1 class=m>Пиццикато Алексея Лота</h1><nav><a href="p.htm">Главная</a><a href="a.htm">Афоризмы</a><a href="m.htm">Песни</a><a href="l.htm">Психология</a><a href="r.htm">Рассказы</a><a href="b.htm">Религия</a><a href="s.htm">Стихотворения</a><a id="i" href="t.htm">Технологии</a><a href="f.htm">Философия</a></nav></header><article id="c"><h2 class=m>Как выполнить код на Assembler из кода C# под Linux</h2><div id="w">Для работы понадобится ОС Linux и установленные в ней компиляторы gcc, g++. Проверить наличие компилятора можно командой whereis, а установить - командой sudo apt install в терминале. Имеется простейший код на GNU Assembler, возвращающий 1 (файл asm.s):
+<pre>.text
+   .globl _new
+   _new: 
+   mov $1,%rax              
+   ret</pre>
+Хотим запустить его в C# с помощью PInvoke. Для этого потребуется промежуточная динамическая библиотека на языке C с кодом (файл my.c):
+<pre>
+        #define EXPORT __attribute__((visibility("default")))
+        EXPORT int foo(void);
+        int foo(void)
+        {
+            extern int _new();
+            return _new();
+        }
+</pre> 
+Эти два файла нужно собрать в shared library (файл lib.so) командой
+<pre>gcc -shared -fpic -o lib.so my.c asm.s</pre>
+Полученный файл lib.so нужно подложить в папку с исполняемым файлом результирующей программы на C#. У меня это подкаталог проекта /bin/Debug/netcoreapp3.1/. Код на C# для запуска функции _new выглядит так:
+<pre>
+    using System.Runtime.InteropServices;
+    class Program{
+    [DllImport("lib.so")] public static extern int foo ();
+     static void Main(string[] args)
+            {
+                int code = foo();
+    System.Console.WriteLine(code);
+    }
+    }</pre>
+Запускается он командой dotnet run, если у вас установлена исполняемая среда .NET Core. В консоли вы увидите 1. Чтобы добавить прослойку между C# и C в виде кода на C++, нужно добавить в проект файл my.cpp с кодом:
+<pre>   extern "C"{
+        #define EXPORT __attribute__((visibility("default")))        
+        EXPORT int foocpp(void)
+        {
+            extern int foo();
+            return foo();
+        }}</pre>
+и заменить в коде C# название внешней функции foo на foocpp. Тогда изменится команда сборки и будет выглядеть так:
+<pre>g++ -shared -fpic -o lib.so my.cpp -x c my.c -x assembler asm.s</pre>
+После чего запускаем dotnet run и видим 1 в консоли.<br></div></article><br><footer>&copy;&nbsp;<i>Copyright&nbsp;<a href="https://алексейлот.рф">алексейлот.рф</a>&nbsp;-&nbsp;возьми главную ноту</i></footer></body></html>

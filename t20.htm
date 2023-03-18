@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="ru" dir="ltr" spellcheck><head><!--#include file="h.htm"--><meta name="description" content="Пиццикато Алексея Лота. Как ускорить C# String.Indexof в поиске заранее известной строки в один проход при заранее неизвестном её расположении."><meta name="keywords" content="сайт алексея лота, технологии, си шарп, c sharp, indexof, ускорение кода, поиск по строке, как ускорить, алексей лот"><title>Как ускорить C# String.Indexof в поиске заранее известной строки в один проход при заранее неизвестном её расположении</title></head><body><header><h1 class=m>Пиццикато Алексея Лота</h1><nav><a href="p.htm">Главная</a><a href="a.htm">Афоризмы</a><a href="m.htm">Песни</a><a href="l.htm">Психология</a><a href="r.htm">Рассказы</a><a href="b.htm">Религия</a><a href="s.htm">Стихотворения</a><a id="i" href="t.htm">Технологии</a><a href="f.htm">Философия</a></nav></header><article id="c"><h2 class=m>Как ускорить C# String.Indexof в поиске заранее известной строки в один проход при заранее неизвестном её расположении</h2><div id="w">Использован .Net Core 3.0. На данный момент хранения строк в памяти в сжатом виде замечено не было, как и распараллеливания IndexOf производителем. Программа, делающая замер:<br>
+<pre>using System;
+using System.Diagnostics;
+ 
+namespace probe
+{
+    class Program
+    {
+        static void Main()
+        {
+            //подготавливаем строку
+            string str = string.Empty;
+            int i;
+            for(i = 0; i < 10000; i ++)
+                str += 'o'; 
+            for(i = 0; i < 10; i ++)
+                str += str;
+            str += "&lt;tag&gt;";
+ 
+            Stopwatch sw = new Stopwatch();
+            sw.Reset();
+            int index;
+            //берём пробу с IndexOf
+            sw.Start();
+            index = str.IndexOf("&lt;tag&gt;");            
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedMilliseconds + "    " + index);
+            
+            //берём пробу с ручным проходом
+            sw.Restart();           
+            int len = str.Length - 4;
+            
+            for(i = 0; i < len; i ++)
+            {             
+                if (str[i] == '<'
+                && str[i+1] == 't'
+                && str[i+2] == 'a'
+                && str[i+3] == 'g'
+                && str[i+4] == '>')
+                  {
+                      index = i;
+                      break;
+                  }
+            }
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedMilliseconds + "    " + index);
+        }
+    }
+}</pre>
+<br>На двухъядерном процессоре Intel результат такой:<br>
+<pre>639 10240000
+76 10240000</pre>
+<br>Если на том же компьютере с Windows 10 в цикле генерации строки я заменяю 'o' на "&lt;tag" с сохранением остального кода, то результаты различаются в 20 раз.<br></div></article><br><footer>&copy;&nbsp;<i>Copyright&nbsp;<a href="https://алексейлот.рф">алексейлот.рф</a>&nbsp;-&nbsp;возьми главную ноту</i></footer></body></html>
