@@ -6,11 +6,6 @@
             <priority>1</priority>
         </url>
         <url>
-            <loc>https://алексейлот.рф/a.htm</loc>
-            <changefreq>yearly</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
             <loc>https://алексейлот.рф/b.htm</loc>
             <changefreq>yearly</changefreq>
             <priority>0.9</priority>
@@ -44,77 +39,12 @@
             <loc>https://алексейлот.рф/t.htm</loc>
             <changefreq>yearly</changefreq>
             <priority>0.9</priority>
-        </url>
+        </url>    
         <url>
-            <loc>https://алексейлот.рф/a1.htm</loc>
-            <changefreq>never</changefreq>
+            <loc>https://алексейлот.рф/i.htm</loc>
+            <changefreq>yearly</changefreq>
             <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a2.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a3.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a4.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a5.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a6.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a7.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a8.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a9.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a10.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a11.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a12.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a13.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
-        <url>
-            <loc>https://алексейлот.рф/a14.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>
+        </url>    
         <url>
             <loc>https://алексейлот.рф/b1.htm</loc>
             <changefreq>never</changefreq>
@@ -689,15 +619,5 @@
             <loc>https://алексейлот.рф/t22.htm</loc>
             <changefreq>never</changefreq>
             <priority>0.9</priority>
-        </url>        
-        <url>
-            <loc>https://алексейлот.рф/t23.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>   
-        <url>
-            <loc>https://алексейлот.рф/t24.htm</loc>
-            <changefreq>never</changefreq>
-            <priority>0.9</priority>
-        </url>      
+        </url>       
     </urlset>
